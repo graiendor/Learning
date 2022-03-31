@@ -1,14 +1,17 @@
-def TimeCalc(workers, tasks, time, overall_time):
+from math import ceil
+
+
+def time_calc(workers: int, tasks: int, time: int, overall_time: int) -> int:
     result = 0
     if overall_time > 0:
         if workers * tasks * time > overall_time:
-            required_time = time * tasks
-            overall_time_now = workers * time
+            overall_time_now = (time * tasks) / workers
+            overall_time_ceiled = ceil(overall_time_now)
             result = workers
-            while overall_time_now < required_time:
+            while overall_time_now > overall_time or overall_time_ceiled >= overall_time:
                 result += 1
-                required_time = time * tasks
-                overall_time_now = result * time
+                overall_time_now = (time * tasks) / result
+                overall_time_ceiled = ceil(overall_time_now)
             result -= workers
         else:
             if workers == 0:
@@ -19,12 +22,8 @@ def TimeCalc(workers, tasks, time, overall_time):
 
 
 if __name__ == "__main__":
-    # w = 2
-    # tk = 500
-    # tm = 100
-    # otm = 101
-    w = 1
-    tk = 3
-    tm = 3
-    otm = 5
-    print(TimeCalc(w, tk, tm, otm))
+    assert time_calc(1, 3, 3, 5) == 2, "Must be 2"
+    assert time_calc(2, 500, 100, 101) == 498, "Must be 498"
+    assert time_calc(12, 40, 9, 10) == 28, "Must be 28"
+    assert time_calc(7, 91, 2, 5) == 39, "Must be 39"
+
