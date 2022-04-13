@@ -20,12 +20,17 @@ class SuffixTree {
     remainingLength = overallLength;
     construct();
     cout << root.length;
-    cout << root.children[1].length;
-    cout << root.children[0].end - root.children[0].begin;
+    cout << root.children[1].length << endl;
+//    cout << *root.begin;
+    if (root.children[0].isLinked) {
+      cout << *root.children[0].link->begin << *root.children[0].link->end;
+    }
+    cout << *root.children[3].begin << endl;
+    cout << *root.children[2].link->begin << endl;
   }
 
   string test_string() {
-    string res{*root.children[1].begin, *root.children[1].end, *root.children[0].children[0].link->begin, *root.children[0].children[0].link->end};
+    string res{*root.children[1].begin, *root.children[1].end, *root.children[1].link->begin, *root.children[1].link->end};
     return res;
   }
 
@@ -46,7 +51,7 @@ class SuffixTree {
     string::iterator begin {input.begin()}, end{input.end()}, find{text.begin()};
     size_t position{};
     while (position < root.length) {
-      find = root.children[position].begin;
+      find = root.children[0].begin;
       if (*begin == *find) {
         found = true;
         break;
@@ -70,6 +75,8 @@ class SuffixTree {
   string text{};
   size_t overallLength{};
   size_t remainingLength{};
+  bool needToLink {false};
+
 
   struct TreeNode {
     shared_ptr<TreeNode[]> children{};
@@ -78,10 +85,12 @@ class SuffixTree {
     string::iterator end{};
     size_t length{};
     bool isEmpty{true};
+    bool isLinked{false};
     bool hasChildren{false};
   };
 
   TreeNode root{};
+  TreeNode* toLink{};
 
   void construct() {
     root.children.reset(new TreeNode[overallLength]);
@@ -96,7 +105,6 @@ class SuffixTree {
   }
 
   void extension(TreeNode& node, size_t edge, string::iterator& begin, string::iterator& end) {
-    bool needToLink {false};
     bool isInserted {true};
     for (size_t position = 0; position <= edge; position++) {
       //  extension
@@ -109,16 +117,22 @@ class SuffixTree {
         string::iterator found = checkRepeat(node.children[position].begin, node.children[position].end, *begin);
         if (found != node.children[position].end && found != end) {
           if (*(found + 1) != *(begin + 1) && (found + 1) != end) {
+
             constructNewNode(node.children[position], found);
             node.children[position].length = node.children[position].end - node.children[position].begin;
-            if (!needToLink) {
+            if (needToLink) {
+//              cout << position << " " << *node.children[position].begin << endl;
+              toLink->link = &node.children[position];
+              toLink->isLinked = true;
+              toLink = &node.children[position];
+              if (node.children[position].length == 0) {
+                needToLink = false;
+                toLink = nullptr;
+              }
+            } else if (node.children[position].length != 0) {
               needToLink = true;
-            } else {
-              node.children[position - 1].children[0].link = &node.children[position].children[0];
-              node.children[position].children[0].link = &node.children[position - 1].children[0];
-              needToLink = false;
+              toLink = &node.children[position];
             }
-//            position--;
             edge--;
             isInserted = false;
           }

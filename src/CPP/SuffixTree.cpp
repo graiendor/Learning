@@ -6,7 +6,7 @@
 
 int main() {
   SuffixTree tree{};
-  tree.setString("lenalek");
+  tree.setString("aclenalek");
 
 
 }
