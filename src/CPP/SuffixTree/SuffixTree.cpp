@@ -1,5 +1,5 @@
 //
-// Created by Emery Reva on 4/10/22.
+// Created by Emery Reva on 4/14/22.
 //
 
 #include "SuffixTree.h"
@@ -68,7 +68,7 @@ void SuffixTree::downTillEnd(TreeNode& node, string::iterator find, string::iter
         find++;
       } else {
         if (distance(findEnd, findBegin) >= threshold && findBegin != fEnd) {
-          if (grantAccess(findBegin, findEnd)) {
+          if (grantAccess(findBegin)) {
             result.push_back(make_pair(findBegin, findEnd));
             bannedPositions.push_back(make_pair(findBegin, findEnd));
           }

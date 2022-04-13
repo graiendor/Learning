@@ -1,8 +1,0 @@
-//
-// Created by Emery Reva on 4/13/22.
-//
-
-#ifndef SRC_CPP_EXPONENTIALSEARCH_H_
-#define SRC_CPP_EXPONENTIALSEARCH_H_
-
-#endif //SRC_CPP_EXPONENTIALSEARCH_H_

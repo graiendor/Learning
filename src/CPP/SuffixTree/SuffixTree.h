@@ -14,17 +14,6 @@
 using namespace std;
 
 class SuffixTree {
- public:
-  SuffixTree(string input) : hayStack(input) {
-    overallLength = hayStack.length();
-    remainingLength = overallLength;
-    construct();
-  }
-
-  /* Нужно подать подстроку, которую необходимо найти и длинна которая равна или превышает threshold.
-   * Возвращает true, если хоть что-то нашлось. */
-  bool search(string input, size_t _threshold);
-
  private:
   string hayStack{};
   size_t overallLength{};
@@ -83,6 +72,17 @@ class SuffixTree {
    * Нужно поставить конец родителя место до разрыва, создать в новом ноде
    * хвост от родителя и создать в новом ноде новый путь  */
   void constructNewNode(TreeNode& node, string::iterator& found);
+
+ public:
+  SuffixTree(string input) : hayStack(input) {
+    overallLength = hayStack.length();
+    remainingLength = overallLength;
+    construct();
+  }
+
+  /* Нужно подать подстроку, которую необходимо найти и длинна которая равна или превышает threshold.
+   * Возвращает true, если хоть что-то нашлось. */
+  bool search(string input, size_t _threshold);
 
   };
 
