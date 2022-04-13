@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <list>
 
 #define MAX_CHAR 256
 
@@ -14,68 +15,48 @@ using namespace std;
 
 class SuffixTree {
  public:
-  void setString(string input) {
-    text = input;
-    overallLength = text.length();
+  SuffixTree(string input) {
+    hayStack = input;
+    overallLength = hayStack.length();
     remainingLength = overallLength;
     construct();
-    cout << root.length;
-    cout << root.children[1].length << endl;
-//    cout << *root.begin;
-    if (root.children[0].isLinked) {
-      cout << *root.children[0].link->begin << *root.children[0].link->end;
-    }
-    cout << *root.children[3].begin << endl;
-    cout << *root.children[2].link->begin << endl;
   }
 
-  string test_string() {
-    string res{*root.children[1].begin, *root.children[1].end, *root.children[1].link->begin, *root.children[1].link->end};
-    return res;
-  }
-
-  size_t test_root_length() {
-    return root.length;
-  }
-
-  size_t test_child_length() {
-    return root.children[0].length;
-  }
-
-  size_t test_child_child_length() {
-    return root.children[0].children[0].length;
-  }
-
-  bool search(string input) {
+  bool search(string input, size_t threshold) {
     bool found{false};
-    string::iterator begin {input.begin()}, end{input.end()}, find{text.begin()};
-    size_t position{};
-    while (position < root.length) {
-      find = root.children[0].begin;
-      if (*begin == *find) {
+    needle = input;
+    string::iterator begin {input.begin()}, end{input.end()}, find{hayStack.begin()};
+    size_t iteration{};
+    bool cont {true};
+//    while (iteration < threshold) {
+      downTheTree(root.children[0], begin, end, threshold);
+      auto size = result.size();
+      if (size) {
         found = true;
-        break;
       }
-      position++;
-    }
-    if (found) {
-      while (begin != end) {
-        if (*begin != *find) {
-          found = false;
-          break;
+      for (int iteration{}; iteration < size; iteration++) {
+        auto res = result.front();
+        result.pop_front();
+        cout << "sequence of length = " << res.second - res.first + 1
+             << " found at haystack offset " << distance(hayStack.begin(), res.first) << " needle offset " << iteration << endl;
+        for (int i = 0; i < 5; i++) {
+          res.second++;
+          cout << *res.second;
         }
-        begin++;
-        find++;
+        cout  << endl;
       }
-    }
+
     return found;
   }
 
  private:
-  string text{};
+  string hayStack{};
+  string needle{};
   size_t overallLength{};
   size_t remainingLength{};
   bool needToLink {false};
+  list<std::pair<string::iterator, string::iterator>> result;
+  size_t position = 1;
 
 
   struct TreeNode {
@@ -91,11 +72,61 @@ class SuffixTree {
 
   TreeNode root{};
   TreeNode* toLink{};
+  TreeNode* lastNode{};
+
+  void downTheTree (TreeNode& node, string::iterator begin, string::iterator end, size_t& threshold) {
+    bool found{false};
+    string::iterator find{node.begin}, findBegin{}, findEnd{};
+    string::iterator originBegin = begin;
+    std::pair<string::iterator, string::iterator> pairFound{};
+    while (find <= node.end && !found) {
+      if (*find == *begin) {
+        found = true;
+        findBegin = find;
+        findEnd = find;
+      } else {
+        find++;
+      }
+    }
+    if (found) {
+      searchEnd(node, begin, end, findEnd, find);
+      pairFound = make_pair(findBegin, findEnd);
+      result.push_back(pairFound);
+      threshold--;
+      if (threshold != 0) {
+        originBegin++;
+        downTheTree(*node.children[position].link, originBegin, end, threshold);
+        position++;
+      }
+    }
+    if (node.hasChildren && !found) {
+      downTheTree(node.children[0], begin, end, threshold);
+    }
+  }
+
+  void searchEnd(const TreeNode& node, string::iterator& begin, string::iterator& end, string::iterator& findEnd, string::iterator find) {
+    bool found{true};
+    if (find > node.end && find < end) {
+      find = node.begin;
+    }
+    while (find <= node.end && found && begin < end) {
+      if (*begin == *find) {
+        begin++;
+        findEnd = find;
+        find++;
+      } else {
+        found = false;
+      }
+    }
+    if (found && node.hasChildren && begin < end) {
+      searchEnd(node.children[0], begin, end, findEnd, node.children[0].begin);
+    }
+  }
 
   void construct() {
     root.children.reset(new TreeNode[overallLength]);
     root.hasChildren = true;
-    string::iterator begin {text.begin()}, end {text.end()};
+    string::iterator begin {hayStack.begin()}, end {hayStack.end()};
     size_t edge{};
     for (; begin < end; begin++, edge++) {
       //  phase
@@ -121,7 +152,6 @@ class SuffixTree {
             constructNewNode(node.children[position], found);
             node.children[position].length = node.children[position].end - node.children[position].begin;
             if (needToLink) {
-//              cout << position << " " << *node.children[position].begin << endl;
               toLink->link = &node.children[position];
               toLink->isLinked = true;
               toLink = &node.children[position];
@@ -135,6 +165,8 @@ class SuffixTree {
             }
             edge--;
             isInserted = false;
+          } else {
+            break;
           }
         } else {
           node.children[position].end = begin;
