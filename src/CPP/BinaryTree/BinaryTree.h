@@ -16,14 +16,6 @@ using std::endl;
 using std::vector;
 using std::unique_ptr;
 
-/**
- * Definition for a binary tree node.
-
- */
-class Solution {
-
-};
-
 class BinaryTree {
 
  private:
@@ -31,8 +23,9 @@ class BinaryTree {
     int value {};
     unique_ptr<TreeNode> left{};
     unique_ptr<TreeNode> right{};
-    TreeNode *previous{};
+    TreeNode *previous{nullptr};
     bool empty {true};
+    bool isChecked {};
   };
   TreeNode root{};
 
@@ -43,14 +36,82 @@ class BinaryTree {
   using Iterator = TreeNode*;
 
   std::pair<Iterator, bool> push(const int& value) {
-    Iterator iterator {&root};
-    iterator = find(value);
+    Iterator iterator {findToInsert(value)};
     auto result = insert(value, iterator);
     return result;
   }
 
+  void clear() {
+    root.empty = true;
+    root.value = 0;
+    root.left.reset();
+    root.right.reset();
+  }
+
+  vector<int> preorderTraversal() {
+    vector<int> result {};
+    Iterator iterator {&root};
+    bool toCheck {!iterator->isChecked}, notTotallyChecked {true};
+    if (!iterator->empty) {
+      result.push_back(iterator->value);
+      iterator->isChecked = toCheck;
+      do {
+        if (!iterator->left->empty && iterator->left->isChecked != toCheck) {
+          iterator = iterator->left.get();
+          result.push_back(iterator->value);
+          iterator->isChecked = toCheck;
+        } else if (!iterator->right->empty && iterator->right->isChecked != toCheck){
+          iterator = iterator->right.get();
+          result.push_back(iterator->value);
+          iterator->isChecked = toCheck;
+        } else if (iterator->previous) {
+          iterator = iterator->previous;
+        } else {
+          notTotallyChecked = false;
+        }
+      } while (notTotallyChecked);
+
+    }
+    return result;
+  }
+
+  vector<int> inorderTraversal() {
+    vector<int> result {};
+    Iterator iterator {&root};
+    bool toCheck {!iterator->isChecked}, notTotallyChecked {true};
+    if (!iterator->empty) {
+      do {
+        if (!iterator->left->empty && iterator->left->isChecked != toCheck) {
+          iterator = iterator->left.get();
+//          result.push_back(iterator->value);
+//          iterator->isChecked = toCheck;
+        } else if (!iterator->right->empty && iterator->right->isChecked != toCheck) {
+          if (iterator->isChecked != toCheck) {
+            result.push_back(iterator->value);
+            iterator->isChecked = toCheck;
+          }
+          iterator = iterator->right.get();
+          result.push_back(iterator->value);
+          iterator->isChecked = toCheck;
+        } else if (iterator->previous) {
+          if (iterator->isChecked != toCheck) {
+            result.push_back(iterator->value);
+            iterator->isChecked = toCheck;
+          }
+          iterator = iterator->previous;
+        } else {
+          notTotallyChecked = false;
+        }
+      } while (notTotallyChecked);
+
+    }
+    return result;
+  }
+
+ private:
   static std::pair<Iterator, bool> insert(const int& value, Iterator iterator) {
     bool isPushed {false};
+
     if (iterator->empty) {
       createNode(value, iterator);
       isPushed = true;
@@ -77,33 +138,28 @@ class BinaryTree {
     iterator->right = std::make_unique<TreeNode>();
   }
 
-  Iterator find(const int& value) {
+  Iterator findToInsert(const int& value) {
     Iterator iterator {&root};
-    while (!iterator->empty && !iterator->left->empty && !iterator->right->empty) {
+    bool found {false};
+    while (!iterator->empty && !found) {
       if (value < iterator->value) {
-        iterator = iterator->left.get();
+        if (iterator->left->empty) {
+          found = true;
+        } else {
+          iterator = iterator->left.get();
+        }
       } else if (value > iterator->value) {
-        iterator = iterator->right.get();
+        if (iterator->right->empty) {
+          found = true;
+        } else {
+          iterator = iterator->right.get();
+        }
       }
     }
     return iterator;
   }
+
 };
 
-//  vector<int> preorderTraversal(TreeNode* root) {
-//    vector<int> result {};
-//    TreeNode* iter {root};
-//    result.push_back(iter->val);
-//    while (iter->left != nullptr) {
-//      result.push_back(iter->val);
-//      iter = iter->left;
-//    }
-//    iter = root;
-//    while (iter->right != nullptr) {
-//      result.push_back(iter->val);
-//      iter = iter->right;
-//    }
-//  }
-//};
 
 #endif //SRC_CPP_BINARY_TREE_BINARYTREE_H_
