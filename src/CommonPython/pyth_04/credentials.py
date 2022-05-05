@@ -1,8 +1,15 @@
 import cherrypy
 import json
 
+config = {
+    'global': {
+        'server.socket_host': '127.0.0.1',
+        'server.socket_port': 8888
+    }
+}
 
-class HelloWorld(object):
+
+class Credentials(object):
     @cherrypy.expose
     def index(self):
         return "Hello world!"
@@ -32,4 +39,4 @@ class HelloWorld(object):
 
 
 if __name__ == '__main__':
-    cherrypy.quickstart(HelloWorld())
+    cherrypy.quickstart(Credentials(), '/', config)
