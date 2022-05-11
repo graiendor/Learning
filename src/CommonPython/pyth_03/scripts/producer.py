@@ -1,8 +1,8 @@
 import json
+import random
 
 import redis
 from time import sleep
-from json import dumps
 
 
 def stream():
@@ -11,10 +11,13 @@ def stream():
     publisher.subscribe('bad guyz')
     while True:
         sleep(3)
-        sender = 1056
-        receiver = 1024
-        money = 1000
-        guy = {'metadata': {'from': sender, 'to': receiver}, 'amount': money}
+        send_guyz: list = [4444444444, 1111111111, 2222222222, 3333333333, 5555555555, 6666666666]
+        receive_guyz: list = [2444444444, 3111111111, 3222222222, 2333333333, 3555555555, 2666666666]
+        sender = random.choice(send_guyz)
+        receiver = random.choice(receive_guyz)
+        money = random.randrange(-10000, 10000, 1100)
+        # guy = {'metadata': {'from': sender, 'to': receiver}, 'amount': money}
+        guy = {'metadata': {'from': sender, 'to': 4444444444}, 'amount': money}
 
         server.publish('bad guyz', json.dumps(guy))
 
