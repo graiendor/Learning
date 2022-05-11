@@ -1,3 +1,3 @@
 #!/bin/bash
 
-redis-cli
+redis-server
