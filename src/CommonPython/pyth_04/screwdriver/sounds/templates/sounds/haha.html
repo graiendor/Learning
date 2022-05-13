@@ -11,12 +11,17 @@
         <main class="content container">
             <div class="row">
                 <div class="col">
+                    {% for image in images %}
+                            <p>{{image}}</p>
+                    {% endfor %}
                     {% block content %}
-                    {% csrf_token %}
-                      <table>
-                        {{ form.as_table }}
-                      </table>
-                      <input type="submit" value="Submit">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                        <input type="submit" value="OK">
+                    </form>
                     {% endblock %}
                 </div>
             </div>
