@@ -117,6 +117,12 @@ class Solution:
 
         return index
 
+    def rotate_array(self, nums: List[int], k: int) -> None:
+        """Shifts right the one-dimensional array by k"""
+        k = k % len(nums)
+        diff = len(nums) - k
+        nums[:k], nums[k:] = nums[diff:],nums[:diff]
+
 
 if __name__ == "__main__":
     # print(Solution.sorted_squares([-4, -1, 0, 3, 10]))
