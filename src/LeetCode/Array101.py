@@ -123,6 +123,18 @@ class Solution:
         diff = len(nums) - k
         nums[:k], nums[k:] = nums[diff:],nums[:diff]
 
+    def moveZeroes(self, nums: List[int]) -> None:
+        """Moves all the 0 to the end of the given list"""
+        nonzero: int = 0
+        length = len(nums)
+        for value in nums:
+            if value:
+                nums[nonzero] = value
+                nonzero += 1
+        for count in range(length - nonzero):
+            nums[nonzero] = 0
+            nonzero += 1
+
 
 if __name__ == "__main__":
     # print(Solution.sorted_squares([-4, -1, 0, 3, 10]))
