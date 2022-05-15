@@ -13,12 +13,11 @@ message Coordinates{
 }
 
 message SpaceshipInfo{
-// string message = 1;
- enum Alignment {ally = 0; enemy = 1;};
+ enum Alignment {none = 0; ally = 1; enemy = 2;};
  Alignment alignment = 1;
  string name = 2;
  float length = 3;
- enum Class {Corvette = 0; Frigate = 1; Cruiser = 2; Destroyer = 3 ; Carrier = 4; Dreadnought = 5;};
+ enum Class {noneclass = 0; Corvette = 1; Frigate = 2; Cruiser = 3; Destroyer = 4 ; Carrier = 5; Dreadnought = 6; Unknown = 7;};
  Class class = 4;
  int32 size = 5;
  bool armed = 6;
