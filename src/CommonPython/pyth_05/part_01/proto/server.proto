@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package report;
+
+message Coordinates{
+// string coordinates = 1;
+ int32 coordinate1 = 1;
+ int32 coordinate2 = 2;
+ float coordinate3 = 3;
+ int32 coordinate4 = 4;
+ int32 coordinate5 = 5;
+ float coordinate6 = 6;
+}
+
+message SpaceshipInfo{
+// string message = 1;
+ enum Alignment {ally = 0; enemy = 1;};
+ Alignment alignment = 1;
+ string name = 2;
+ float length = 3;
+ enum Class {Corvette = 0; Frigate = 1; Cruiser = 2; Destroyer = 3 ; Carrier = 4; Dreadnought = 5;};
+ Class class = 4;
+ int32 size = 5;
+ bool armed = 6;
+ repeated string officers = 7;
+}
+
+service Report{
+ rpc GetSpaceship(Coordinates) returns (SpaceshipInfo) {}
+}
+
