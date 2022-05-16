@@ -12,7 +12,6 @@ def search_insert(nums, target: int) -> int:
     else:
         while left <= right and not found:
             middle = ceil(left + (right - left) / 2)
-            print(left, middle, right)
             if target == nums[middle]:
                 found = True
             if target > nums[middle]:
