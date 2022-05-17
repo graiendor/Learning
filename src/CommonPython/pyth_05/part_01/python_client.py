@@ -1,8 +1,6 @@
 import json
-from enum import Enum
 
 import google.protobuf.json_format as js
-# import pydantic
 from pydantic import BaseModel, ValidationError, Field, root_validator
 from typing import List, Dict
 from python_server import ReportService

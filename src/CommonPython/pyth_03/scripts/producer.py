@@ -6,7 +6,7 @@ from time import sleep
 
 
 def stream():
-    """Produces a json data, which consists of the sender and receiver (10 digits id) and the amount of transfered money.
+    """Produces a json_serv data, which consists of the sender and receiver (10 digits id) and the amount of transfered money.
     Then publishes it to the channel"""
     publisher.subscribe('bad guyz')
     while True:

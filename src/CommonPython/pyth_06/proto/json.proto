@@ -1,0 +1,19 @@
+syntax = 'proto3';
+
+package json;
+
+message AllowJson {
+  bool allow = 1;
+  bool restart = 2;
+}
+
+message JsonResult {
+  bool passed = 1;
+  enum Intensity {none = 0; low = 1; middle = 2; high = 3;}
+  Intensity intensity = 2;
+  bool end = 3;
+}
+
+service ProcessJson {
+  rpc GetJsonResult(AllowJson) returns (JsonResult) {}
+}

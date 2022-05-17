@@ -1,0 +1,68 @@
+{
+  "low_intensity_questions": [
+    {
+      "question": "Are you taking any drugs?",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You're crying. Why is that?",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You return from work to find that your home has been burglarized.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "Out of the corner of your eye, you see a large black spider crawling up the wall.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    }
+  ],
+  "middle_intensity_questions": [
+    {
+      "question": "You've been drafted into the army. During a boot-camp hazing, you're bound, blindfolded and force to eat worms.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You suddenly feel the urge to commit suicide.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You're seven years old. You've managed to steal several marshmallows from the kitchen and sneak them back to your bedroom. You're caught and your father spanks you.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    }
+  ],
+  "high_intensity_questions": [
+    {
+      "question": "You're watching an old movie. It shows a banquet in progress. The guests are enjoying raw oysters. The entrée consists of boiled dog.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You're going to die. It maybe soon. Death, the grave, rot.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    },
+    {
+      "question": "You've been kidnapped. Your captors tell you that you'd better think about what you did to deserved this.",
+      "answer1" : "1",
+      "answer2" : "2",
+      "answer3" : "3"
+    }
+  ]
+}

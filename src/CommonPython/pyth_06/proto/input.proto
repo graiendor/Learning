@@ -1,0 +1,21 @@
+syntax = 'proto3';
+
+package input;
+
+message Input {
+  int32 respiration = 1;
+  int32 hearth_rate = 2;
+  int32 blushing_level = 3;
+  float pupillary_dilation = 4;
+  enum Intensity {none = 0; low = 1; middle = 2; high = 3;}
+  Intensity intensity = 5;
+}
+
+message InputResult {
+  bool result = 1;
+  bool valid = 2;
+}
+
+service ProcessInput {
+  rpc GetInputResult(Input) returns (InputResult) {}
+}
