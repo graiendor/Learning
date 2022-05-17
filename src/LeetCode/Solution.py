@@ -190,6 +190,32 @@ class Solution:
             image = self.recursiveFill(image, sr, sc - 1, newColor, source)
         return image
 
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        max_size: int = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[i])):
+                if grid[i][j] == 1:
+                    counting_size: int = 0
+                    counting_size = self.count_size(grid, i, j, counting_size)
+                    max_size = max(max_size, counting_size)
+        return max_size
+
+    def count_size(self, grid: List[List[int]], i, j, counting_size) -> int:
+        """Given an m x n binary matrix grid. An island is a group of 1's (representing land)
+        connected 4-directionally (horizontal or vertical.)
+
+        The area of an island is the number of cells with a value 1 in the island.
+
+        Returns the maximum area of an island in grid. If there is no island, returns 0."""
+        if grid[i][j] == 1:
+            grid[i][j] = 2
+            counting_size += 1
+            if i > 0: counting_size = self.count_size(grid, i - 1, j, counting_size)
+            if j > 0: counting_size = self.count_size(grid, i, j - 1, counting_size)
+            if i + 1 < len(grid): counting_size = self.count_size(grid, i + 1, j, counting_size)
+            if j + 1 < len(grid[0]): counting_size = self.count_size(grid, i, j + 1, counting_size)
+        return counting_size
+
 
 if __name__ == "__main__":
     # print(Solution.sorted_squares([-4, -1, 0, 3, 10]))
