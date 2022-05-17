@@ -105,6 +105,7 @@ TEST(Map, basic) {
 
     cout << *it << ' ';
   }
+
   cout << endl;
 
 }

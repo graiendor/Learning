@@ -1,5 +1,5 @@
 from typing import List
-from math import pow
+from math import pow, ceil
 
 
 class Solution:
@@ -134,6 +134,61 @@ class Solution:
         for count in range(length - nonzero):
             nums[nonzero] = 0
             nonzero += 1
+
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        for count, value in enumerate(numbers):
+            match: int = self.search(numbers, target - value)
+            found_value = numbers[match]
+            while match == count and numbers[match] == found_value:
+                match += 1
+            if numbers[match] + value == target:
+                return [count + 1, match + 1]
+
+    def search(self, nums: List[int], target: int) -> int:
+        right: int = len(nums) - 1
+        left: int = 0
+        middle: int = ceil(right / 2)
+
+        while nums[middle] != target and middle != -1:
+            if nums[middle] > target:
+                right = middle - 1
+                middle = left + ceil((right - left) / 2)
+            if nums[middle] < target:
+                left = middle + 1
+                middle = left + ceil((right - left) / 2)
+            if left > right:
+                middle = -1
+
+        return middle
+
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        """An image is represented by an m x n integer grid image where image[i][j] represents the pixel value of the image.
+
+        Performs a flood fill on the image starting from the pixel image[sr][sc].
+
+        Returns the modified image after performing the flood fill."""
+        source: int = image[sr][sc]
+        if source != newColor:
+            image[sr][sc] = newColor
+            image = self.recursiveFill(image, sr, sc, newColor, source)
+        return image
+
+    def recursiveFill(self, image: List[List[int]], sr: int, sc: int, newColor: int, source: int) -> List[List[int]]:
+        column_length: int = len(image)
+        rows_length: int = len(image[0])
+        if sr + 1 in range(column_length) and image[sr + 1][sc] == source:
+            image[sr + 1][sc] = newColor
+            image = self.recursiveFill(image, sr + 1, sc, newColor, source)
+        if sr - 1 in range(column_length) and image[sr - 1][sc] == source:
+            image[sr - 1][sc] = newColor
+            image = self.recursiveFill(image, sr - 1, sc, newColor, source)
+        if sc + 1 in range(rows_length) and image[sr][sc + 1] == source:
+            image[sr][sc + 1] = newColor
+            image = self.recursiveFill(image, sr, sc + 1, newColor, source)
+        if sc - 1 in range(rows_length) and image[sr][sc - 1] == source:
+            image[sr][sc - 1] = newColor
+            image = self.recursiveFill(image, sr, sc - 1, newColor, source)
+        return image
 
 
 if __name__ == "__main__":

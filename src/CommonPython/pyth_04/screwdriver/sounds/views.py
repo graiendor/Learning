@@ -11,10 +11,9 @@ from django.core.files.storage import FileSystemStorage
 
 def index(request):
     # return HttpResponse("Hello, world. You're at the sounds index.")
-    # sound_instance = get_object_or_404(SoundInstance, pk=pk)
+    # sound_instance = get_object_or_404(SoundInstance, pk=pk
     path = '/Users/ereva/Pyth/src/CommonPython/pyth_04/screwdriver/media/sounds'
     img_list = os.listdir(path)
-    print(img_list)
     if request.method == 'POST':
         form = SoundForm(request.POST, request.FILES)
         if form.is_valid():
