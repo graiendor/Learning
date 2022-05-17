@@ -13,7 +13,6 @@ message Input {
 
 message InputResult {
   bool result = 1;
-  bool valid = 2;
 }
 
 service ProcessInput {

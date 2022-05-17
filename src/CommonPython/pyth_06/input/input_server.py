@@ -15,29 +15,58 @@ from pydantic import BaseModel, ValidationError, Field, root_validator
 
 class InputService(pb2_grpc.ProcessInputServicer):
     def __init__(self):
-        pass
+        self.intensity = 0
 
     def GetInputResult(self, request, context):
-        result = {'valid': False}
+        result = {'result': False}
         if request.respiration and request.hearth_rate and request.blushing_level and request.pupillary_dilation:
+            self.intensity = request.intensity
             valid: bool = self.respiration_validate(request.respiration) and \
                           self.hearth_rate_validate(request.hearth_rate) and \
                           self.blushing_level_validate(request.blushing_level) and \
                           self.pupillary_dilation_validate(request.pupillary_dilation)
-            result = {'result': True, 'valid': valid}
+            result = {'result': valid}
         return pb2.InputResult(**result)
 
     def respiration_validate(self, respiration):
-        return respiration in range(12, 16)
+        valid: bool = False
+        if self.intensity == 1:
+            valid = respiration in range(8, 12)
+        if self.intensity == 2:
+            valid = respiration in range(12, 16)
+        if self.intensity == 3:
+            valid = respiration in range(12, 20)
+        return valid
 
     def hearth_rate_validate(self, hearth_rate):
-        return hearth_rate in range(60, 100)
+        valid: bool = False
+        if self.intensity == 1:
+            valid = hearth_rate in range(40, 80)
+        if self.intensity == 2:
+            valid = hearth_rate in range(60, 100)
+        if self.intensity == 3:
+            valid = hearth_rate in range(80, 120)
+        return valid
 
     def blushing_level_validate(self, blushing_level):
-        return blushing_level in range(1, 6)
+        valid: bool = False
+        if self.intensity == 1:
+            valid = blushing_level in range(1, 2)
+        if self.intensity == 2:
+            valid = blushing_level in range(2, 4)
+        if self.intensity == 3:
+            valid = blushing_level in range(5, 6)
+        return valid
 
     def pupillary_dilation_validate(self, pupillary_dilation):
-        return pupillary_dilation in range(2, 8)
+        valid: bool = False
+        if self.intensity == 1:
+            valid = pupillary_dilation in range(2, 3)
+        if self.intensity == 2:
+            valid = pupillary_dilation in range(3, 6)
+        if self.intensity == 3:
+            valid = pupillary_dilation in range(6, 9)
+        return valid
 
 
 def run():
