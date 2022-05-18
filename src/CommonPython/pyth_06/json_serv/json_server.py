@@ -1,14 +1,10 @@
 import json
-import threading
-from enum import IntEnum
-from typing import List, Dict
 
 import grpc
 from concurrent import futures
-import time
 import json_pb2_grpc as pb2_grpc
 import json_pb2 as pb2
-from random import choice, uniform, randint
+from random import choice
 
 
 class JsonService(pb2_grpc.ProcessJsonServicer):
@@ -57,7 +53,7 @@ class JsonService(pb2_grpc.ProcessJsonServicer):
 def run():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_ProcessJsonServicer_to_server(JsonService(), server)
-    server.add_insecure_port('[::]:8081')
+    server.add_insecure_port('[::]:8092')
     server.start()
     server.wait_for_termination()
 

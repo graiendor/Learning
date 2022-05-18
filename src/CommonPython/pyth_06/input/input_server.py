@@ -1,16 +1,7 @@
-import json
-import threading
-from enum import IntEnum
-from typing import List, Dict
-import google.protobuf.json_format as js
-
 import grpc
 from concurrent import futures
-import time
 import input_pb2_grpc as pb2_grpc
 import input_pb2 as pb2
-from random import choice, uniform, randint
-from pydantic import BaseModel, ValidationError, Field, root_validator
 
 
 class InputService(pb2_grpc.ProcessInputServicer):
@@ -72,7 +63,7 @@ class InputService(pb2_grpc.ProcessInputServicer):
 def run():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_ProcessInputServicer_to_server(InputService(), server)
-    server.add_insecure_port('[::]:8082')
+    server.add_insecure_port('[::]:8091')
     server.start()
     server.wait_for_termination()
 

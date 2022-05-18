@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package store;
+
+message Data {
+  int32 test_subject = 1;
+  bool test_result = 2;
+  bool input_result = 3;
+}
+
+message TestSubject {
+  int32 test_subject = 1;
+}
+
+message Verdict {
+  bool exists = 1;
+  bool verdict = 2;
+}
+
+service ProcessData {
+  rpc SendData(Data) returns (TestSubject) {}
+  rpc DeleteData(TestSubject) returns (TestSubject) {}
+  rpc GetVerdict(TestSubject) returns (Verdict) {}
+}
+
+
+
+
