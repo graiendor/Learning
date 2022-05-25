@@ -5,17 +5,22 @@ from concurrent import futures
 import json_pb2_grpc as pb2_grpc
 import json_pb2 as pb2
 from random import choice
+from os.path import exists, getsize
 
 
 class JsonService(pb2_grpc.ProcessJsonServicer):
     def __init__(self):
+        if exists('QA.json') and getsize('QA.json'):
+            with open('QA.json') as QA:
+                self.qa = json.load(QA)
+        else:
+            exit()
+
         self.end = False
         self.low = 0
         self.middle = 0
         self.high = 0
         self.intensity = 1
-        with open('QA.json') as QA:
-            self.qa = json.load(QA)
 
     def Restart(self):
         self.low = 0

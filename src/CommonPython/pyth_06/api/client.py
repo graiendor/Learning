@@ -3,6 +3,7 @@ import json_pb2, json_pb2_grpc
 import store_pb2, store_pb2_grpc
 import grpc
 
+
 class JsonClient(object):
     def __init__(self):
         self.host = 'localhost'
@@ -66,6 +67,7 @@ def check_if_integer():
         value = input()
         try:
             value = int(value)
+            assert value > 0
             integer = True
         except ValueError:
             print('You have entered invalid data. Try again!')

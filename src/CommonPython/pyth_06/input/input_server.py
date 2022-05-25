@@ -22,11 +22,11 @@ class InputService(pb2_grpc.ProcessInputServicer):
     def respiration_validate(self, respiration):
         valid: bool = False
         if self.intensity == 1:
-            valid = respiration in range(8, 12)
+            valid = respiration in range(8, 13)
         if self.intensity == 2:
-            valid = respiration in range(12, 16)
+            valid = respiration in range(12, 17)
         if self.intensity == 3:
-            valid = respiration in range(12, 20)
+            valid = respiration in range(12, 21)
         return valid
 
     def hearth_rate_validate(self, hearth_rate):
@@ -42,19 +42,19 @@ class InputService(pb2_grpc.ProcessInputServicer):
     def blushing_level_validate(self, blushing_level):
         valid: bool = False
         if self.intensity == 1:
-            valid = blushing_level in range(1, 2)
+            valid = blushing_level in range(1, 3)
         if self.intensity == 2:
-            valid = blushing_level in range(2, 4)
+            valid = blushing_level in range(2, 5)
         if self.intensity == 3:
-            valid = blushing_level in range(5, 6)
+            valid = blushing_level in range(5, 7)
         return valid
 
     def pupillary_dilation_validate(self, pupillary_dilation):
         valid: bool = False
         if self.intensity == 1:
-            valid = pupillary_dilation in range(2, 3)
+            valid = pupillary_dilation in range(2, 4)
         if self.intensity == 2:
-            valid = pupillary_dilation in range(3, 6)
+            valid = pupillary_dilation in range(3, 7)
         if self.intensity == 3:
             valid = pupillary_dilation in range(6, 9)
         return valid
