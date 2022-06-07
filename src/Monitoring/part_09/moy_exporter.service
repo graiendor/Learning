@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User=graien
+Group=graien
+ExecStart=/usr/local/bin/moy_exporter
+
+[Install]
+WantedBy=multi-user.target
