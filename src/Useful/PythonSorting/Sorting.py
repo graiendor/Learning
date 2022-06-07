@@ -82,12 +82,12 @@ class Sort:
         positions: dict[int, int] = {i: 0 for i in range(min(array), max(array) + 1)}
         for _, value in enumerate(array):
             positions.update({value: positions.get(value) + 1})
-        positions = {x: y for x, y in positions.items() if y!=0}
         future_value = 0
         for _, key in enumerate(positions.keys()):
             value = positions.get(key)
-            positions.update({key: future_value})
-            future_value += value
+            if value != 0:
+                positions.update({key: future_value})
+                future_value += value
         output: list = [0 for i in range(len(array))]
         for _, value in enumerate(array):
             output[positions.get(value)] = value

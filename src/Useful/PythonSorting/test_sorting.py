@@ -1,4 +1,5 @@
 from Sorting import Sort
+from random import randint, randrange
 
 def test_selection():
     sort = Sort()
@@ -6,8 +7,11 @@ def test_selection():
     sort.selection(array)
     assert array == [1, 2, 6, 53, 87]
     array: list[int] = ['o', 'b', 'a', 'q', 'd']
-    sort.bubble(array)
+    sort.selection(array)
     assert array == ['a', 'b', 'd', 'o', 'q']
+    test = [randint(-2000, 2000) for i in range(10000)]
+    sort.selection(test)
+    assert test == sorted(test)
 
 def test_bubble():
     sort = Sort()
@@ -17,6 +21,9 @@ def test_bubble():
     array: list[int] = ['o', 'b', 'a', 'q', 'd']
     sort.bubble(array)
     assert array == ['a', 'b', 'd', 'o', 'q']
+    test = [randint(-2000, 2000) for i in range(10000)]
+    sort.bubble(test)
+    assert test == sorted(test)
 
 def test_insertion():
     sort = Sort()
@@ -26,6 +33,9 @@ def test_insertion():
     array: list[int] = ['o', 'b', 'a', 'q', 'd']
     sort.insertion(array)
     assert array == ['a', 'b', 'd', 'o', 'q']
+    test = [randint(-2000, 2000) for i in range(10000)]
+    sort.insertion(test)
+    assert test == sorted(test)
 
 def test_merge():
     sort = Sort()
@@ -35,6 +45,9 @@ def test_merge():
     array: list[int] = ['o', 'b', 'a', 'q', 'd']
     sort.merge(array)
     assert array == ['a', 'b', 'd', 'o', 'q']
+    test = [randint(-2000, 2000) for i in range(10000)]
+    sort.merge(test)
+    assert test == sorted(test)
 
 def test_quick():
     sort = Sort()
@@ -44,6 +57,9 @@ def test_quick():
     array: list[int] = ['o', 'b', 'a', 'q', 'd']
     sort.quick(array)
     assert array == ['a', 'b', 'd', 'o', 'q']
+    test = [randint(-2000, 2000) for i in range(10000)]
+    sort.quick(test)
+    assert test == sorted(test)
     
 def test_counting():
     sort = Sort()
@@ -54,7 +70,6 @@ def test_counting():
     array: list[int] = [6, 1, 87, 53, 2]
     result = sort.counting(array)
     assert result == [1, 2, 6, 53, 87]
-    # array: list[int] = ['o', 'b', 'a', 'q', 'd']
-    # result = sort.counting(array)
-    # assert result == ['a', 'b', 'd', 'o', 'q']
-    
+    test = [randint(-2000, 2000) for i in range(10000)]
+    result = sort.counting(test)
+    assert result == sorted(test)
