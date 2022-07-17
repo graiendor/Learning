@@ -3,6 +3,6 @@ from .views import Roller
 
 
 urlpatterns = [
-    path('', Roller.as_view())
+    path('', Roller.as_view()),
 ]
 
