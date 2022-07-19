@@ -4,62 +4,29 @@
 <h1>Dice</h1>
 <li>Value: {{ roll.value }}</li>
 <li>Result: {{ roll.result }}</li>
-<form method="get">
+<form method="post">
+    {% csrf_token %}
     <input type="submit" class="btn" value="Roll" name="roll_btn">
 </form>
 
 <h1>Attributes</h1>
-<form method="get">
+<form method="post">
+    {% csrf_token %}
     <div class="attributes">
-        <div class="attribute">Strength: <input type="checkbox" id="str1" name="strength1" value="1"
-                                                checked>
-            <input type="checkbox" id="str2" name="strength2" value="1"
-                   checked>
-            <input type="checkbox" id="str3" name="strength3" value="1"
-                   checked>
-            <input type="checkbox" id="str4" name="strength4" value="1"
-                   checked>
-            <input type="checkbox" id="str5" name="strength5" value="1"
-                   checked> {{ attributes.strength }}
-        </div>
-        <div class="attribute">Dexterity: {{ attributes.dexterity }}</div>
-        <div class="attribute">Stamina: {{ attributes.stamina }}</div>
-
-        <div class="attribute">Charisma: {{ attributes.charisma }}</div>
-        <div class="attribute">Manipulation: {{ attributes.manipulation }}</div>
-        <div class="attribute">Composure: {{ attributes.composure }}</div>
-
-        <div class="attribute">Intelligence: {{ attributes.intelligence }}</div>
-        <div class="attribute">Wits: {{ attributes.wits }}</div>
-        <div class="attribute">Resolve: {{ attributes.stamina }}</div>
+        {{ attributes }}
+{#        <div class="attribute">Strength: <input type="number" id="str" name="strength" value="{{ attributes.strength }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Dexterity:  <input type="number" id="dex" name="dexterity" value="{{ attributes.dexterity }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Stamina: <input type="number" id="stm" name="stamina" value="{{ attributes.stamina }}" min="1" max="5"></div>#}
+{##}
+{#        <div class="attribute">Charisma: <input type="number" id="cha" name="charisma" value="{{ attributes.charisma }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Manipulation: <input type="number" id="man" name="manipulation" value="{{ attributes.manipulation }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Composure: <input type="number" id="com" name="composure" value="{{ attributes.composure }}" min="1" max="5"></div>#}
+{##}
+{#        <div class="attribute">Intelligence: <input type="number" id="int" name="intelligence" value="{{ attributes.intelligence }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Wits: <input type="number" id="wits" name="wits" value="{{ attributes.wits }}" min="1" max="5"></div>#}
+{#        <div class="attribute">Resolve: <input type="number" id="res" name="resolve" value="{{ attributes.resolve }}" min="1" max="5"></div>#}
     </div>
-    {#<li> &emsp; Charisma: {{ data.charisma }} </li>#}
-    {#<li> &emsp; Dexterity: {{ data.manipulation }} </li>#}
-    {#<li> &emsp; Stamina: {{ data.composure }}</li>#}
 
 
     <input type="submit" class="btn" value="Submit" name="submit_attributes_btn">
 </form>
-{#<html>#}
-{#    <head>#}
-{#        <title>An example</title>#}
-{#        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>#}
-{#        <script>#}
-{#            function call_counter(url) {#}
-{#window.open(url);#}
-{#                $.get('YOUR_VIEW_HERE/'+pk+'/', function (data) {#}
-{##}
-{#                    alert("counter updated!");#}
-{#                });#}
-{#            }#}
-{#        </script>#}
-{#    </head>#}
-{#    <body>#}
-{#        <button onclick="call_counter('http://www.google.com', 12345);">#}
-{#            I update object 12345#}
-{#        </button>#}
-{#        <button onclick="call_counter('http://www.yahoo.com', 999);">#}
-{#            I update object 999#}
-{#        </button>#}
-{#    </body>#}
-{#</html>#}

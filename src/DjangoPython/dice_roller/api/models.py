@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Roll(models.Model):
-    value = models.IntegerField()
-    result = models.CharField(max_length=8)
+    value = models.IntegerField(default=1)
+    result = models.CharField(max_length=8, default='')
 
 
 class Attributes(models.Model):
@@ -20,5 +20,3 @@ class Attributes(models.Model):
     intelligence = models.IntegerField(default=1)
     wits = models.IntegerField(default=1)
     resolve = models.IntegerField(default=1)
-
-
