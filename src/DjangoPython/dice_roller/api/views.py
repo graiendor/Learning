@@ -24,7 +24,7 @@ class Roller(APIView):
 
     def post(self, request):
         if 'roll_btn' in request.POST:
-            __roll__(self.roll)
+            __roll__(self.roll, 10)
         if 'submit_attributes_btn' in request.POST:
             self.attributes = AttributesForm(request.POST)
             if self.attributes.is_valid():

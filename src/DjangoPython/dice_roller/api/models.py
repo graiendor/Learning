@@ -1,10 +1,11 @@
 from django.db import models
-
+from django.core.validators import int_list_validator
 # Create your models here.
 
 
 class Roll(models.Model):
-    value = models.IntegerField(default=1)
+    # value = models.IntegerField(default=1)
+    value = models.CharField(max_length=50)
     result = models.CharField(max_length=8, default='')
 
 
