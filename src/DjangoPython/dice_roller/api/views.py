@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
 from .models import Roll, Attributes
-from .scripts.roll import __roll__
+from .scripts.roll import __roll__, __dices__
 from .scripts.attributes import __attributes__
 from django.core import serializers
 from .forms import AttributesForm, RollForm
@@ -23,13 +23,13 @@ class Roller(APIView):
         return Response({'roll': self.roll, 'attributes': self.attributes})
 
     def post(self, request):
+        self.attributes = AttributesForm(request.POST)
+
+        if self.attributes.is_valid():
+            self.attributes.save()
+        dices = __dices__(self.attributes.cleaned_data)
         if 'roll_btn' in request.POST:
-            __roll__(self.roll, 10)
-        if 'submit_attributes_btn' in request.POST:
-            self.attributes = AttributesForm(request.POST)
-            if self.attributes.is_valid():
-                print('yes')
-                self.attributes.save()
+            __roll__(self.roll, dices)
         return Response({'roll': self.roll, 'attributes': self.attributes})
 
 

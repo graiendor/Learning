@@ -15,4 +15,5 @@ class RollForm(ModelForm):
 class AttributesForm(ModelForm):
     class Meta:
         model = Attributes
-        fields = ['strength', 'dexterity', 'stamina', 'charisma', 'manipulation', 'composure', 'intelligence', 'wits', 'resolve']
+        fields = ['strength', 'strength_check', 'charisma', 'charisma_check', 'intelligence', 'intelligence_check', 'dexterity', 'dexterity_check',
+                  'manipulation', 'manipulation_check', 'wits', 'wits_check', 'stamina', 'stamina_check',  'composure', 'composure_check', 'resolve', 'resolve_check']
