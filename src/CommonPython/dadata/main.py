@@ -26,7 +26,6 @@ def change_settings_menu(configuration: Configuration):
             case "2":
                 configuration.token = change_settings(2)
             case "3":
-                print('yes')
                 configuration.language = change_settings(3)
             case "4":
                 stop = True
