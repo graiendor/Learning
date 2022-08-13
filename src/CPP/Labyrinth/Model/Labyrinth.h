@@ -9,46 +9,37 @@
 #include <iostream>
 #include <numeric>
 #include <random>
+#include <cstdio>
 
 class Labyrinth {
  public:
   void createLabyrinth(int width, int height) {
+    width_ = width;
+    height_ = height;
     set.emplace_back(*new std::vector<int>(width));
     labyrinth_right.emplace_back(*new std::vector<int>(width));
     labyrinth_bottom.emplace_back(*new std::vector<int>(width));
     std::iota(set[0].begin(), set[0].end(), 1);
-    init_labyrinth(width);
-    add_bottom(width);
-    for (int row{1}; row < height; row++) {
-      labyrinth_right.emplace_back(*new std::vector<int>(width));
+    add_right(0);
+    add_bottom(0);
+    for (int row{1}; row < height_; row++) {
+      labyrinth_right.emplace_back(*new std::vector<int>(width_));
       labyrinth_bottom.emplace_back(*new std::vector<int>(labyrinth_bottom[row - 1]));
       set.emplace_back(*new std::vector<int>(set[row-1]));
-      for (int labyrinth_index {}; labyrinth_index < width; labyrinth_index++) {
+      for (int labyrinth_index {}; labyrinth_index < width_; labyrinth_index++) {
         if (labyrinth_bottom[row][labyrinth_index] == 1) {
           labyrinth_bottom[row][labyrinth_index] = 0;
           most_set += 1;
           set[row][labyrinth_index] = most_set;
         }
       }
+      add_right(row);
+      add_bottom(row);
+      if (row == height - 1) {
+        finish_labyrinth(row);
+      }
+      print_lab();
     }
-
-
-
-
-//      if (generate_random_number(0, 1)) {
-//
-//        if (set_count > 0 && labyrinth_index != width && set[0][labyrinth_index] != set[0][labyrinth_index + 1]) {
-//          labyrinth_bottom[0][labyrinth_index] = 1;
-//          isExit = false;
-//        }
-//      }
-//      if (labyrinth_index != width && set[0][labyrinth_index] != set[0][labyrinth_index + 1]) {
-//        set_count = 0;
-//      } else {
-//        set_count++;
-//      }
-
-
 
     for (auto& i : labyrinth_right) {
       for (auto& j : i)
@@ -67,18 +58,25 @@ class Labyrinth {
         std::cout << j;
       std::cout << std::endl;
     }
-
-
-//    std::cout << labyrinth_right[0];
   }
  private:
   int generate_random_number(int from, int to);
-  void init_labyrinth(int width);
-  void add_bottom(int width);
+  void add_right(int row);
+  void add_bottom(int row);
+  void finish_labyrinth(int row);
+  void print_lab() {
+    for (int row{1}; row < height_; row++) {
+      for (int labyrinth_index {}; labyrinth_index < width_; labyrinth_index++) {
+
+        }
+      }
+  };
   int most_set{};
   std::vector<std::vector<int>> labyrinth_right{};
   std::vector<std::vector<int>> labyrinth_bottom{};
   std::vector<std::vector<int>> set{};
+  int width_{};
+  int height_{};
 };
 
 
