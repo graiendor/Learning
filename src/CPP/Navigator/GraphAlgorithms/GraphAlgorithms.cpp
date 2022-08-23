@@ -3,15 +3,21 @@
 //
 
 #include "GraphAlgorithms.h"
+#include <algorithm>
+#include "../libs/s21_containerAdaptor.h"
 
 std::vector<int> GraphAlgorithms::depthFirstSearch(Graph &graph, int startVertex) {
+  if (visited_.size() == graph.getSize()) { visited_.clear(); }
+  goToNext(graph, startVertex);
+  return visited_;
+}
+void GraphAlgorithms::goToNext(Graph &graph, int startVertex) {
   int size {graph.getSize()};
-  int current_node {};
-//  for (int i{}; i < size, current_node != startVertex; i++) {
-//    for (int j{}; j < size, current_node != startVertex; j++) {
-//      current_node = graph.getNode(i, j);
-//    }
-//  }
-//  std::vector<int>
-  return std::vector<int>();
+  visited_.emplace_back(startVertex);
+  for (int i{1} ; i < size; i++) {
+    std::cout << startVertex << " : " << i << " : " << graph.getConnectionValue(startVertex, i) << std::endl;
+    if (std::find(visited_.begin(), visited_.end(), i) == visited_.end() && graph.getConnectionValue(startVertex, i)) {
+      goToNext(graph, i);
+    }
+  }
 }

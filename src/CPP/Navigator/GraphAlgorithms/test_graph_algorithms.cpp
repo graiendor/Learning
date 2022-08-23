@@ -8,5 +8,8 @@
 int main() {
   Graph graph("test1.txt");
   GraphAlgorithms algorithms{};
-  algorithms.depthFirstSearch(graph, 1);
+  auto vec = algorithms.depthFirstSearch(graph, 1);
+  for (auto it {vec.begin()}; it < vec.end(); it++) {
+    std::cout << *it << std::endl;
+  }
 }

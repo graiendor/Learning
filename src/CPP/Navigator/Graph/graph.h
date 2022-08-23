@@ -18,14 +18,14 @@ class Graph {
     loadGraphFromFile(filename);
   }
   void loadGraphFromFile(const std::string& filename);
-  void exportGraphToDot(const std::string& filename);
-  [[nodiscard]] int getNode(const int& i, const int& j) const;
+  void exportGraphToDot(const std::string& filename) const;
+  [[nodiscard]] int getConnection(const int& i, const int& j) const;
+  [[nodiscard]] int getConnectionValue(const int& i, const int& j) const;
   [[nodiscard]] int getSize() const;
 
 
  private:
-  std::map<int, std::vector<std::pair<int, int>>> nodes{};
-//  std::vector<std::vector<int>> matrix{};
+  std::map<int, std::vector<std::pair<int, int>>> matrix_{};
   int size{};
 
 };
