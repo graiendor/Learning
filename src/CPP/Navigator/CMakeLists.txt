@@ -17,5 +17,5 @@ add_executable(Graph
 add_executable(GraphAlgorithms
         Graph/graph.cpp Graph/graph.h
         GraphAlgorithms/test_graph_algorithms.cpp
-        GraphAlgorithms/GraphAlgorithms.cpp GraphAlgorithms/GraphAlgorithms.h
-        libs/s21_containerAdaptor.h)
+        GraphAlgorithms/GraphAlgorithms.cpp GraphAlgorithms/GraphAlgorithms.h)
+

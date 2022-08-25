@@ -4,20 +4,36 @@
 
 #include "GraphAlgorithms.h"
 #include <algorithm>
-#include "../libs/s21_containerAdaptor.h"
+#include <stack>
+#include <vector>
 
-std::vector<int> GraphAlgorithms::depthFirstSearch(Graph &graph, int startVertex) {
-  if (visited_.size() == graph.getSize()) { visited_.clear(); }
-  goToNext(graph, startVertex);
-  return visited_;
-}
-void GraphAlgorithms::goToNext(Graph &graph, int startVertex) {
-  int size {graph.getSize()};
-  visited_.emplace_back(startVertex);
-  for (int i{1} ; i < size; i++) {
-    std::cout << startVertex << " : " << i << " : " << graph.getConnectionValue(startVertex, i) << std::endl;
-    if (std::find(visited_.begin(), visited_.end(), i) == visited_.end() && graph.getConnectionValue(startVertex, i)) {
-      goToNext(graph, i);
+std::stack<int> GraphAlgorithms::depthFirstSearch(Graph &graph, int startVertex) {
+  std::stack<int> path {};
+  std::stack<int> search {};
+  bool connected {false};
+  int size = graph.getSize();
+  int elements {};
+  std::vector<int> visited(size, 0);
+  path.push(startVertex);
+  search.push(startVertex);
+  while (elements < size) {
+    visited[path.top() - 1] = 1;
+    elements += 1;
+    connected = false;
+    std::cout << startVertex << " \\ " << std::endl;
+    for (int depth{}; depth < graph.getSize() && !connected; depth++) {
+      std::cout << depth << " : ";
+      if (graph.getConnectionValue(path.top(), depth) && !visited[depth]) {
+        path.push(depth + 1);
+        search.push(depth + 1);
+        connected = true;
+      }
     }
-  }
+    if (!connected) {
+      path.pop();
+    }
+    std::cout << "\nend" << std::endl;
+  };
+//  goToNext(graph, startVertex);
+  return search;
 }

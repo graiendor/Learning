@@ -10,10 +10,8 @@
 
 class GraphAlgorithms {
  public:
-  std::vector<int> depthFirstSearch(Graph &graph, int startVertex);
+  std::stack<int> depthFirstSearch(Graph &graph, int startVertex);
  private:
-  std::vector<int> visited_{};
-  void goToNext(Graph &graph, int startVertex);
 
 };
 

@@ -51,5 +51,5 @@ int Graph::getConnection(const int& i, const int& j) const {
 }
 
 int Graph::getConnectionValue(const int& i, const int& j) const {
-  return matrix_.at(i).at(j - 1).second;
+  return matrix_.at(i).at(j).second;
 }
