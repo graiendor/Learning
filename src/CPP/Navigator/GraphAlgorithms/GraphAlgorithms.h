@@ -7,11 +7,14 @@
 
 #include "../Graph/graph.h"
 #include <vector>
+#include <queue>
 
 class GraphAlgorithms {
  public:
   std::stack<int> depthFirstSearch(Graph &graph, int startVertex);
+  std::queue<int> breadthFirstSearch(Graph &graph, int startVertex);
  private:
+
 
 };
 

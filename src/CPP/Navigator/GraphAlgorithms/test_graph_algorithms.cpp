@@ -8,9 +8,15 @@
 int main() {
   Graph graph("test1.txt");
   GraphAlgorithms algorithms{};
-  auto vec = algorithms.depthFirstSearch(graph, 1);
-  while (!vec.empty()) {
-    std::cout << vec.top() << std::endl;
-    vec.pop();
+//  auto vec = algorithms.depthFirstSearch(graph, 1);
+//  while (!vec.empty()) {
+//    std::cout << vec.top() << std::endl;
+//    vec.pop();
+//  }
+
+  auto q = algorithms.breadthFirstSearch(graph, 1);
+  while (!q.empty()) {
+    std::cout << q.front() << std::endl;
+    q.pop();
   }
 }
