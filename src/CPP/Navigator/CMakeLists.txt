@@ -10,6 +10,9 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/Graph/graph.txt
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/GraphAlgorithms/test1.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/GraphAlgorithms/test2.txt
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 add_executable(Graph
         Graph/test_graph.cpp
         Graph/graph.cpp Graph/graph.h)

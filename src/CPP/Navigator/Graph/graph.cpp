@@ -5,16 +5,17 @@
 #include "graph.h"
 void Graph::loadGraphFromFile(const std::string& filename) {
   std::ifstream file{filename};
-  file >> size;
-  int value{};
-  for (int i {1}; i <= size; i++) {
-    for (int j{1}; j <= size; j++) {
-      value = 0;
-      matrix_.emplace(i, std::vector<std::pair<int, int>>{});
-      file >> value;
-      matrix_[i].emplace_back(j, value);
+  if (file.is_open()) {
+    file >> size;
+    int value{};
+    for (int i{1}; i <= size; i++) {
+      for (int j{1}; j <= size; j++) {
+        value = 0;
+        matrix_.emplace(i, std::vector<std::pair<int, int>>{});
+        file >> value;
+        matrix_[i].emplace_back(j, value);
+      }
     }
-  }
 //  for (auto& it : matrix_) {
 //    std::cout << it.first << " : " << std::endl;
 //    for (auto& iter : it.second) {
@@ -22,7 +23,8 @@ void Graph::loadGraphFromFile(const std::string& filename) {
 //    }
 //    std::cout << std::endl;
 //  }
-  file.close();
+    file.close();
+  }
 }
 
 void Graph::exportGraphToDot(const std::string& filename) const {

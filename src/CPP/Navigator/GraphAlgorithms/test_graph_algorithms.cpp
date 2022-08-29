@@ -14,9 +14,11 @@ int main() {
 //    vec.pop();
 //  }
 
-  auto q = algorithms.breadthFirstSearch(graph, 1);
-  while (!q.empty()) {
-    std::cout << q.front() << std::endl;
-    q.pop();
-  }
+//  auto q = algorithms.breadthFirstSearch(graph, 1);
+//  while (!q.empty()) {
+//    std::cout << q.front() << std::endl;
+//    q.pop();
+//  }
+  Graph graph_1("test2.txt");
+  algorithms.getShortestPathBetweenVertices(graph_1, 1, 5);
 }
