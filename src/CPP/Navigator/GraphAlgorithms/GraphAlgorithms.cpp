@@ -96,19 +96,4 @@ void GraphAlgorithms::getShortestPathBetweenVertices(Graph &graph, int vertex1, 
 
   }
   std::cout << found;
-//  std::cout << getNearestNode(graph, vertex1).first << " : " << getNearestNode(graph, vertex1).second;
 }
-
-//std::pair<int, int> GraphAlgorithms::getNearestNode(const Graph &graph, const int currentNode) {
-//  int size = graph.getSize(), node{}, distance{std::numeric_limits<int>::max()};
-//  for (int i{}; i < size; i++) {
-//    int value = graph.getConnectionValue(currentNode, i);
-//    if (value) {
-//      if (value < distance) {
-//        node = i;
-//        distance = value;
-//      }
-//    }
-//  }
-//  return std::make_pair(node, distance);
-//}

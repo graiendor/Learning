@@ -3,9 +3,11 @@
 //
 
 #include "graph.h"
-void Graph::loadGraphFromFile(const std::string& filename) {
+auto Graph::loadGraphFromFile(const std::string& filename) -> bool {
+  bool opened {false};
   std::ifstream file{filename};
   if (file.is_open()) {
+    matrix_.clear();
     file >> size;
     int value{};
     for (int i{1}; i <= size; i++) {
@@ -24,7 +26,9 @@ void Graph::loadGraphFromFile(const std::string& filename) {
 //    std::cout << std::endl;
 //  }
     file.close();
+    opened = true;
   }
+  return opened;
 }
 
 void Graph::exportGraphToDot(const std::string& filename) const {

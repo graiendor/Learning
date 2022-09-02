@@ -8,6 +8,7 @@
 #include "../Graph/graph.h"
 #include <vector>
 #include <queue>
+#include <stack>
 
 class GraphAlgorithms {
  public:

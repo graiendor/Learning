@@ -17,7 +17,7 @@ class Graph {
   explicit Graph(const std::string& filename) {
     loadGraphFromFile(filename);
   }
-  void loadGraphFromFile(const std::string& filename);
+  auto loadGraphFromFile(const std::string& filename) -> bool;
   void exportGraphToDot(const std::string& filename) const;
   [[nodiscard]] int getConnection(const int& i, const int& j) const;
   [[nodiscard]] int getConnectionValue(const int& i, const int& j) const;
