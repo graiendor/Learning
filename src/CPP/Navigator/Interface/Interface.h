@@ -16,23 +16,28 @@
 
 class Interface {
  public:
-  void start();
+  auto start()                                                                                      -> void;
  private:
-  bool stop{false};
+  bool stop                                                                                         {false};
 
-  auto initialization()             -> void;
-  auto initialize_start_page()      -> void;
-  auto initialize_load_file_page()  -> void;
+  auto initialization()                                                                             -> void;
+  auto initialize_start_page()                                                                      -> void;
+  auto initialize_load_file_page()                                                                  -> void;
+  auto initialize_depth_page(const std::wstring& size_, const std::wstring& path)                   -> void;
 
-  ftxui::Screen screen_                      {ftxui::Screen::Create(ftxui::Dimension::Full())};
-  std::shared_ptr<ftxui::Node> start_page_   {};
-  std::shared_ptr<ftxui::Node> load_page_    {};
-  std::shared_ptr<ftxui::Node> load_result_  {};
+  auto run()                                                                                        -> void;
 
-  auto load_graph()                 -> void;
+  ftxui::Screen screen_                                                                             {ftxui::Screen::Create(ftxui::Dimension::Full())};
+  std::shared_ptr<ftxui::Node> start_page_                                                          {};
+  std::shared_ptr<ftxui::Node> load_page_                                                           {};
+  std::shared_ptr<ftxui::Node> depth_page_before_                                                   {};
+  std::shared_ptr<ftxui::Node> depth_page_                                                          {};
 
-  Graph graph_{};
-  GraphAlgorithms graph_algorithms_{};
+  auto load_graph()                                                                                 -> void;
+  auto depth_search()                                                                               -> void;
+
+  Graph graph_                                                                                      {};
+  GraphAlgorithms graph_algorithms_                                                                 {};
 
 //  ftxui::Element options;
 

@@ -53,7 +53,7 @@ project(simpleNavigator
         )
 
 add_executable(simpleNavigator
-        Interface/Interface.cpp Interface/Interface.h
+        Interface/Interface.cpp Interface/Interface.h Interface/InterfaceInitialization.cpp
         Graph/graph.cpp Graph/graph.h
         GraphAlgorithms/GraphAlgorithms.cpp GraphAlgorithms/GraphAlgorithms.h)
 
@@ -65,7 +65,6 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/GraphAlgorithms/test1.txt
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/GraphAlgorithms/test2.txt
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-#target_include_directories(ftxui-starter PRIVATE src)
 
 target_link_libraries(simpleNavigator
         PRIVATE ftxui::screen
